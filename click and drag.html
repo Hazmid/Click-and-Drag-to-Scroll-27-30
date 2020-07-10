@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Click and Drag</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="items">
+    <div class="item item1">K</div>
+    <div class="item item2">E</div>
+    <div class="item item3">E</div>
+    <div class="item item4">P</div>
+    <div class="item item5">-</div>
+    <div class="item item6">S</div>
+    <div class="item item7">C</div>
+    <div class="item item8">R</div>
+    <div class="item item9">0</div>
+    <div class="item item10">L</div>
+    <div class="item item11">L</div>
+    <div class="item item12">I</div>
+    <div class="item item13">N</div>
+    <div class="item item14">G</div>
+    <div class="item item15">-</div>
+    <div class="item item16">K</div>
+    <div class="item item17">E</div>
+    <div class="item item18">E</div>
+    <div class="item item19">P</div>
+    <div class="item item20">-</div>
+    <div class="item item21">S</div>
+    <div class="item item22">C</div>
+    <div class="item item23">R</div>
+    <div class="item item24">0</div>
+    <div class="item item25">L</div>
+  </div>
+
+<script>
+
+const slider = document.querySelector('.items')
+let isDown = false; //flag
+let startX;
+let scrollLeft;
+
+ //
+slider.addEventListener('mousedown', (e) => {
+
+  isDown = true;
+
+  //active class is for the little zoom on click
+  slider.classList.add('active');
+
+  //startX = x coord of where was clicked //minus slider.offsetLeft just incase theres margin outside the slider div
+  startX = e.pageX - slider.offsetLeft;
+  
+  //scrollLeft = scroll coords, so next scroll continues from last stop
+  scrollLeft = slider.scrollLeft;
+  
+});
+
+
+
+slider.addEventListener('mouseleave', () => {
+  isDown = false;
+  slider.classList.remove('active');
+});
+
+slider.addEventListener('mouseup', () => {
+  isDown = false;
+  slider.classList.remove('active');
+});
+
+
+//
+slider.addEventListener('mousemove', (e) => {
+
+  // func only works on mousedown (true)
+  if(!isDown) return; 
+
+  //stop browser default actions first
+  e.preventDefault();
+
+  //x is movement position
+  const x = e.pageX - slider.offsetLeft;
+
+  //walk = movement position - click position //TIMES 2 increases scroll speed
+  const walk = (x - startX) * 2;
+
+  //final settings
+  slider.scrollLeft = scrollLeft - walk;
+
+  //console.log({scrollLeft, walk});
+  
+  
+});
+
+</script>
+
+  </body>
+</html>
